@@ -1,13 +1,4 @@
 
- const option = {
-  jobId: 'zzz',
-  attempts: 5,
-  repeat: {
-    cron: "*/4 * * * * *",
-    limit: 2
-  }
-}
-
 function forSingleLater(email) {
   const s = email.schedule
   const cron = `${s.second || "*"} ${s.minute} ${s.hour} ${s.dayOfMonth} ${s.month} *`
@@ -21,6 +12,7 @@ function forSingleLater(email) {
     }
   }
 }
+
 function forRecurringHourly(email) {
   const s = email.schedule
   let hourFormula = "*"

@@ -2,39 +2,30 @@
 const dbOperations = require('./databaseServices/dbOperations');
 const optionGenerator = require('./queueOptionGenerator')
 
-
-
-
 module.exports =  (sendMailQueue,congig) => {
-sendInstantEmails()
-scheduleCurrentYearEmails()
-scheduleHourlyEmails()
-scheduleDailyEmails()
-scheduleWeeklyEmails()
-scheduleMonthlyEmails()
+  sendInstantEmails()
+  scheduleCurrentYearEmails()
+  scheduleHourlyEmails()
+  scheduleDailyEmails()
+  scheduleWeeklyEmails()
+  scheduleMonthlyEmails()
 
 
-function sendInstantEmails() {
-  dbOperations.getInstantEmails().then((res) => {
-    res.forEach(async email => {
-      sendMailQueue.add({id: email.id});
-      await  dbOperations.updateScheduledEmail(email)
-      console.log('instant------>: ' + email.id)        
-
-      // emailService.sendEMail(email)
-      //console.log(email)
-      //SEND THE INSTA EMAILS DIRECTLY
-     
-    });
-  })
-  .then(()=>{
-    console.log('instant------------>')
-    setTimeout(() => {
-      sendInstantEmails()
-    }, congig.schedulerTimeout);
-  })
-}
-
+  function sendInstantEmails() {
+    dbOperations.getInstantEmails().then((res) => {
+      res.forEach(async email => {
+        sendMailQueue.add({id: email.id});
+        await  dbOperations.updateScheduledEmail(email)
+        console.log('instant------>: ' + email.id)
+      });
+    })
+    .then(()=>{
+      console.log('instant------------>')
+      setTimeout(() => {
+        sendInstantEmails()
+      }, congig.schedulerTimeout);
+    })
+  }
 
   function scheduleCurrentYearEmails() {
     dbOperations.getLaterEmailsForCurrentYear().then((res) => {
@@ -45,7 +36,7 @@ function sendInstantEmails() {
 
           await  dbOperations.updateScheduledEmail(email)
         
-           console.log('scheduled_later------>: ' + email.id)        
+            console.log('scheduled_later------>: ' + email.id)        
       });
     })
     .then(()=>{
@@ -65,7 +56,7 @@ function sendInstantEmails() {
 
           await  dbOperations.updateScheduledEmail(email)
         
-           console.log('scheduled_hourly------>: ' + email.id)        
+            console.log('scheduled_hourly------>: ' + email.id)        
       });
     })
     .then(()=>{
@@ -85,7 +76,7 @@ function sendInstantEmails() {
 
           await  dbOperations.updateScheduledEmail(email)
         
-           console.log('scheduled_daily------>: ' + email.id)        
+            console.log('scheduled_daily------>: ' + email.id)        
       });
     })
     .then(()=>{
@@ -105,7 +96,7 @@ function sendInstantEmails() {
 
           await  dbOperations.updateScheduledEmail(email)
         
-           console.log('scheduled_weekly------>: ' + email.id)        
+            console.log('scheduled_weekly------>: ' + email.id)        
       });
     })
     .then(()=>{
@@ -125,7 +116,7 @@ function sendInstantEmails() {
 
           await  dbOperations.updateScheduledEmail(email)
         
-           console.log('scheduled_monthly------>: ' + email.id)        
+            console.log('scheduled_monthly------>: ' + email.id)        
       });
     })
     .then(()=>{

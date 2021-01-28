@@ -7,10 +7,7 @@ let limiter = 100;
 function getLaterEmailsForCurrentYear() {
   return Email.
   find({
-      // "schedule.year": new Date().getFullYear(),
-      // "schedule.type": "later",
       "schedule.scheduled": "false"
-
     })
     .where("schedule.year").equals((new Date().getFullYear()).toString())
     .where("schedule.type").equals("later")
@@ -19,11 +16,8 @@ function getLaterEmailsForCurrentYear() {
 }
 
 function  updateScheduledEmail(email) {
-  // console.log('before update: '+email.schedule.scheduled)
   email.schedule.scheduled = true;
-   email.save()
-  // console.log('before update: '+email.schedule.scheduled)
-
+  email.save()
 }
 
 function getInstantEmails() {
@@ -77,7 +71,6 @@ module.exports = {
   getDailyEmails: getDailyEmails,
   getWeeklyEmails: getWeeklyEmails,
   getMonthlyEmails: getMonthlyEmails,
-
   // getRecurringEmailsByPeriod: getRecurringEmailsByPeriod,
   updateScheduledEmail: updateScheduledEmail,
   getEmailById: getEmailById

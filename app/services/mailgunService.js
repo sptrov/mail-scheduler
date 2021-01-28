@@ -8,7 +8,6 @@ module.exports = (config) => {
 
   return {
     sendEMail: (emailDefinition) => {
-
       //field 'to' is left hardcoded from config for now because I am using the free acount 
       //which is sandboxed and can send emails to up to 3 verified!! email addresses
       const data = {
