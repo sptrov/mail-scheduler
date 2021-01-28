@@ -1,8 +1,7 @@
-
 function forSingleLater(email) {
   const s = email.schedule
   const cron = `${s.second || "*"} ${s.minute} ${s.hour} ${s.dayOfMonth} ${s.month} *`
-  return  {
+  return {
     jobId: email.id,
     attempts: 5,
     removeOnComplete: true,
@@ -17,7 +16,7 @@ function forRecurringHourly(email) {
   const s = email.schedule
   let hourFormula = "*"
 
-  if(+(s.numberOfTimes) > 1){
+  if (+(s.numberOfTimes) > 1) {
     hourFormula = `${hourFormula}/${s.numberOfTimes}`
   }
   const cron = `0 0 ${hourFormula} * * *`
@@ -28,7 +27,7 @@ function forRecurringHourly(email) {
       cron: cron
     }
   }
-  if(s.limit && s.limit != '') {
+  if (s.limit && s.limit != '') {
     options.repeat.limit = s.limit
   }
 
@@ -39,10 +38,10 @@ function forRecurringDaily(email) {
   const s = email.schedule
   let dayFormula = "*"
 
-  if(+(s.numberOfTimes) > 1){
+  if (+(s.numberOfTimes) > 1) {
     dayFormula = `${dayFormula}/${s.numberOfTimes}`
   }
-  
+
   const cron = `${s.second || "*"} ${s.minute} ${s.hour} ${dayFormula} * * `
 
   let options = {
@@ -52,7 +51,7 @@ function forRecurringDaily(email) {
       cron: cron
     }
   }
-  if(s.limit && s.limit != '') {
+  if (s.limit && s.limit != '') {
     options.repeat.limit = s.limit
   }
 
@@ -72,7 +71,7 @@ function forRecurringWeekly(email) {
       cron: cron
     }
   }
-  if(s.limit && s.limit != '') {
+  if (s.limit && s.limit != '') {
     options.repeat.limit = s.limit
   }
 
@@ -84,7 +83,7 @@ function forRecurringMonthly(email) {
 
   let monthFormula = "*"
 
-  if(+(s.numberOfTimes) > 1){
+  if (+(s.numberOfTimes) > 1) {
     monthFormula = `${monthFormula}/${s.numberOfTimes}`
   }
 
@@ -97,7 +96,7 @@ function forRecurringMonthly(email) {
       cron: cron
     }
   }
-  if(s.limit && s.limit != '') {
+  if (s.limit && s.limit != '') {
     options.repeat.limit = s.limit
   }
 
