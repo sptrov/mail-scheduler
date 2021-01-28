@@ -1,9 +1,9 @@
 let Email = require('../../models/email').Email
 
-let limiter = 100;
+let limiter = 100; // should go to config file 
 
 //We dont want to yet to warry about single emails for next year
-//We also dont have to flood the memmory with such a job
+//We also dont have to flood the queue with such a job
 function getLaterEmailsForCurrentYear() {
   return Email.
   find({

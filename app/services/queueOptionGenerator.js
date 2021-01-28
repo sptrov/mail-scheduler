@@ -1,15 +1,20 @@
+
+function getSchedulePattern(jobId, cronPattern) {
+  return {
+    jobId: jobId,
+    removeOnComplete: true,
+    attempts: 5,
+    repeat: {
+      cron: cronPattern
+    }
+  }
+}
 function forSingleLater(email) {
   const s = email.schedule
   const cron = `${s.second || "*"} ${s.minute} ${s.hour} ${s.dayOfMonth} ${s.month} *`
-  return {
-    jobId: email.id,
-    attempts: 5,
-    removeOnComplete: true,
-    repeat: {
-      cron: cron,
-      limit: 1
-    }
-  }
+  let option = getSchedulePattern(email.id, cron)
+  option.repeat.limit = 1;
+  return option
 }
 
 function forRecurringHourly(email) {
@@ -20,13 +25,8 @@ function forRecurringHourly(email) {
     hourFormula = `${hourFormula}/${s.numberOfTimes}`
   }
   const cron = `0 0 ${hourFormula} * * *`
-  let options = {
-    jobId: email.id,
-    attempts: 5,
-    repeat: {
-      cron: cron
-    }
-  }
+  let options = getSchedulePattern(email.id, cron)
+
   if (s.limit && s.limit != '') {
     options.repeat.limit = s.limit
   }
@@ -44,13 +44,8 @@ function forRecurringDaily(email) {
 
   const cron = `${s.second || "*"} ${s.minute} ${s.hour} ${dayFormula} * * `
 
-  let options = {
-    jobId: email.id,
-    attempts: 5,
-    repeat: {
-      cron: cron
-    }
-  }
+  let options = getSchedulePattern(email.id, cron)
+
   if (s.limit && s.limit != '') {
     options.repeat.limit = s.limit
   }
@@ -64,13 +59,8 @@ function forRecurringWeekly(email) {
 
   const cron = `${s.second || "*"} ${s.minute} ${s.hour} * * ${s.daysOfWeek}`
 
-  let options = {
-    jobId: email.id,
-    attempts: 5,
-    repeat: {
-      cron: cron
-    }
-  }
+  let options = getSchedulePattern(email.id, cron)
+
   if (s.limit && s.limit != '') {
     options.repeat.limit = s.limit
   }
@@ -89,13 +79,8 @@ function forRecurringMonthly(email) {
 
   const cron = `${s.second || "*"} ${s.minute} ${s.hour} ${s.dayOfMonth} ${monthFormula} *`
 
-  let options = {
-    jobId: email.id,
-    attempts: 5,
-    repeat: {
-      cron: cron
-    }
-  }
+  let option = getSchedulePattern(email.id, cron)
+
   if (s.limit && s.limit != '') {
     options.repeat.limit = s.limit
   }

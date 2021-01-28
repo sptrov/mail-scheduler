@@ -11,8 +11,7 @@ let emailSchema = mongoose.Schema({
     type: String
   },
   schedule: {
-    // type: mongoose.Schema.Types.ObjectId,
-    // ref: 'Schedule'
+    
     second: {
       type: String
     },
