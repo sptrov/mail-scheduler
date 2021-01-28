@@ -9,6 +9,13 @@ function getSchedulePattern(jobId, cronPattern) {
     }
   }
 }
+
+function addLimit(options, schedule) {
+  if (schedule.limit && schedule.limit != '') {
+    options.repeat.limit = schedule.limit
+  }
+}
+
 function forSingleLater(email) {
   const s = email.schedule
   const cron = `${s.second || "*"} ${s.minute} ${s.hour} ${s.dayOfMonth} ${s.month} *`
@@ -27,9 +34,7 @@ function forRecurringHourly(email) {
   const cron = `0 0 ${hourFormula} * * *`
   let options = getSchedulePattern(email.id, cron)
 
-  if (s.limit && s.limit != '') {
-    options.repeat.limit = s.limit
-  }
+  addLimit(options, s)
 
   return options;
 }
@@ -46,9 +51,7 @@ function forRecurringDaily(email) {
 
   let options = getSchedulePattern(email.id, cron)
 
-  if (s.limit && s.limit != '') {
-    options.repeat.limit = s.limit
-  }
+  addLimit(options, s)
 
   return options;
 }
@@ -61,9 +64,7 @@ function forRecurringWeekly(email) {
 
   let options = getSchedulePattern(email.id, cron)
 
-  if (s.limit && s.limit != '') {
-    options.repeat.limit = s.limit
-  }
+  addLimit(options, s)
 
   return options;
 }
@@ -79,11 +80,9 @@ function forRecurringMonthly(email) {
 
   const cron = `${s.second || "*"} ${s.minute} ${s.hour} ${s.dayOfMonth} ${monthFormula} *`
 
-  let option = getSchedulePattern(email.id, cron)
+  let options = getSchedulePattern(email.id, cron)
 
-  if (s.limit && s.limit != '') {
-    options.repeat.limit = s.limit
-  }
+  addLimit(options, s)
 
   return options;
 }

@@ -17,7 +17,7 @@ function getLaterEmailsForCurrentYear() {
 
 function  updateScheduledEmail(email) {
   email.schedule.scheduled = true;
-  email.save()
+  return email.save()
 }
 
 function getInstantEmails() {
