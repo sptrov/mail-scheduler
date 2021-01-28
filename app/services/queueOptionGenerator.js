@@ -14,7 +14,7 @@ function forSingleLater(email) {
   const cron = `${s.second || "*"} ${s.minute} ${s.hour} ${s.dayOfMonth} ${s.month} *`
   let option = getSchedulePattern(email.id, cron)
   option.repeat.limit = 1;
-  return option
+  return option;
 }
 
 function forRecurringHourly(email) {
