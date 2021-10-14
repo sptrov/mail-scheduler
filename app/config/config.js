@@ -4,19 +4,19 @@ let rootPath = path.normalize(path.join(__dirname, '/../../'))
 module.exports = {
 	dev: {
 		rootPath: rootPath,
-		db: 'mongodb://localhost:27017/email_definitions',
+		db: process.env.db || 'mongodb://localhost:27017/email_definitions',
 		port: 5555,
 		redis: {
-			host: '127.0.0.1',
+			host: process.env.redis || '127.0.0.1',
 			port: 6379
 		},
 		bullQueueName: "sendMail",
 		mailgun: {
-			domain:"******",
-			apiKey:"*****",
-			to: "******"
+			domain: "******",
+			apiKey: "*****",
+			to: "******",
 		},
-		schedulerTimeout:10000
+		schedulerTimeout: 5000
 	},
 	dev_cloud: {
 		rootPath: rootPath,

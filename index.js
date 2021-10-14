@@ -9,5 +9,4 @@ require('./app/config/database')(config)
 const a = require('./app/services/queueService')(config)
 
 console.log(`listening on port ${config.port} on ${environment} environment `)
-
-
+console.log(`DB at ` + process.env.db)
